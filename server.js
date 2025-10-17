@@ -28,8 +28,14 @@ async function start() {
   process.on('uncaughtException', (err) => logger.error('Uncaught exception', { err }));
 
   try {
+    // Allow only localhost:4200 and GitHub Pages app (CORS ignores URL paths).
+    const allowedOrigins = ['http://localhost:4200', 'https://leoaltemari.github.io'];
+
     const { url } = await startStandaloneServer(server, {
       listen: { port: PORT },
+      cors: {
+        origin: allowedOrigins,
+      },
     });
 
     logger.info(`GraphQL server ready at: ${url}`);
