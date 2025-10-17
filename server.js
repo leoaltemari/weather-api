@@ -9,6 +9,8 @@ async function start() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    csrfPrevention: false,
+    introspection: true,
     formatError(formattedError, error) {
       logger.error('GraphQL error', { formattedError, error });
 
